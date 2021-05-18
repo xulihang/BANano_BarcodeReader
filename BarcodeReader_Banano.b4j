@@ -44,12 +44,13 @@ End Sub
 
 Sub AppStart (Form1 As Form, Args() As String) 'ignore
 	' you can change some output params here
-	BANano.Initialize("BANano", "BANanoSkeletonDemo",2)
+	BANano.Initialize("BANano", "BANano Barcode Reader Demo",2)
 	BANano.HTML_NAME = "index.html"
 	
-	BANano.Header.Title="BANano Skeleton Demo"
+	BANano.Header.Title="BANano Barcode Reader Demo"
 	BANano.Header.AddJavascriptFile("https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.3/dist/dbr.js")
 	BANano.TranspilerOptions.ExternalTestConnectionServer = "http://gorgeousapps.com"	
+	BANano.TranspilerOptions.MergeAllJavascriptFiles = True
 	' start the build
 	BANano.Build(File.DirApp)
 		
@@ -65,14 +66,21 @@ Sub BANano_Ready()
 	SKNavigationBar1.AddMenu("barcodereader", "Barcode Reader")
 	bf.Initialize.AddFileSelect(Me, "body", "fuconnect")
 	Dynamsoft.Initialize("Dynamsoft")
-	Dynamsoft.GetField("DBR").GetField("BarcodeReader").SetField("productKeys","t0077xQAAAD5PnCqP+JzPKuMXcREgPtAcHe3Xuc8Fxzj9yQCaSHmFE9cAhcU9TgabPY+I8ZBm85DEPh7H4WgYtlP954MeI92qtGrzAQ6NKXE=")
+	'Dynamsoft.GetField("DBR").GetField("BarcodeReader").SetField("productKeys","t0077xQAAAD5PnCqP+JzPKuMXcREgPtAcHe3Xuc8Fxzj9yQCaSHmFE9cAhcU9TgabPY+I8ZBm85DEPh7H4WgYtlP954MeI92qtGrzAQ6NKXE=")
+	Dynamsoft.GetField("DBR").GetField("BarcodeReader").SetField("organizationID","200001")
 	Dynamsoft.GetField("DBR").GetField("BarcodeScanner").SetField("defaultUIElementURL","assets/scanner.html")
 	reader.Initialize(Dynamsoft)
 	scanner.Initialize(Dynamsoft,"scanner")
+    If reader.mReader=Null Then
+		BANano.Alert("Initialization failed. The license may have expired.")
+	End If	
+End Sub
+
+Private Sub scanButton_Click (event As BANanoEvent)
+	scanner.show
 End Sub
 
 private Sub scanner_onUnduplicatedRead(txt As String,result As TextResult)
-	Log("UnduplicatedRead")
 	resultLabel.Text=result.Text
 	SKModal1.Open	
 End Sub
@@ -99,10 +107,6 @@ Private Sub decodeButton_Click (event As BANanoEvent)
 		sb.Append("<br/>")		
 	Next
 	resultContainer.Element.SetHTML(sb.ToString)
-End Sub
-
-Private Sub scanButton_Click (event As BANanoEvent)
-	scanner.show
 End Sub
 
 Sub fuconnect_change(e As BANanoEvent)

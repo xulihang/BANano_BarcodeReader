@@ -16,6 +16,6 @@ ModuleClosedNodes2=
 ModuleClosedNodes3=
 ModuleClosedNodes4=
 ModuleClosedNodes5=
-NavigationStack=Main,scanner_onFrameRead,52,0,Main,BANano_Ready,37,6,Main,SKModal1_OKClick,115,0,Main,AppStart,23,0,Main,Process_Globals,17,0,Visual Designer,Modal1.bjl,-100,6,Main,fuconnect_change,92,0,Main,scanButton_Click,80,0,Main,loadImageButton_Click,61,0,Main,scanner_onUnduplicatedRead,50,6
+NavigationStack=Main,decodeButton_Click,81,0,Main,fuconnect_change,102,0,Main,SKModal1_CancelClick,109,0,Main,SKModal1_OKClick,112,0,Main,scanButton_Click,51,0,Main,AppStart,27,6,BANanoFiles,OnError,105,0,BarcodeReader,decode,10,0,BarcodeReader,Initialize,9,0,Main,BANano_Ready,51,6
 SelectedBuild=0
 VisibleModules=1,2,5,4,3
